@@ -4,7 +4,7 @@ const Session = require('../models/Session');
 
 const router = express.Router();
 
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
 
 async function callAI(systemPrompt, userPrompt) {
   const url = `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`;
@@ -63,6 +63,7 @@ router.post('/generate', authGuard, async (req, res) => {
 
     res.status(201).json({ sessionId: session._id, questions });
   } catch (err) {
+    console.error('Generate route error:', err.message);
     res.status(500).json({ message: 'Failed to generate questions', error: err.message });
   }
 });
@@ -104,6 +105,7 @@ Return a JSON object with these fields and no extra text:
 
     res.json(feedback);
   } catch (err) {
+    console.error('Answer route error:', err.message);
     res.status(500).json({ message: 'Failed to evaluate answer', error: err.message });
   }
 });
