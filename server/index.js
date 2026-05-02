@@ -10,17 +10,15 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(
-  cors({
-    origin: [
-      'http://localhost:5173',
-      'https://mock-interview-coach.vercel.app',
-      process.env.CLIENT_URL,
-    ].filter(Boolean),
-    credentials: true,
-  })
-);
-app.use(express.json());
+app.use(cors({
+  origin: function (origin, callback) {
+    callback(null, true);
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.options('*', cors());
 
 // Routes
 const authRoutes = require('./routes/auth');
@@ -54,7 +52,7 @@ const connectDB = async () => {
 
     await mongoose.connect(mongoUri);
     console.log('MongoDB connected');
-    
+
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
     });
