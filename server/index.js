@@ -14,8 +14,10 @@ app.use(
   cors({
     origin: [
       'http://localhost:5173',
+      'https://mock-interview-coach.vercel.app',
       process.env.CLIENT_URL,
     ].filter(Boolean),
+    credentials: true,
   })
 );
 app.use(express.json());
