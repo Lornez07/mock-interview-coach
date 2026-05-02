@@ -19,6 +19,8 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
+app.use(express.json());
+
 // Routes
 const authRoutes = require('./routes/auth');
 const interviewRoutes = require('./routes/interview');

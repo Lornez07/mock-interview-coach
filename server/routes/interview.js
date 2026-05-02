@@ -42,6 +42,7 @@ async function callAI(systemPrompt, userPrompt) {
 
 // POST /api/interview/generate
 router.post('/generate', authGuard, async (req, res) => {
+  console.log('Generate route hit');
   try {
     const { jobRole } = req.body;
 
@@ -52,6 +53,7 @@ router.post('/generate', authGuard, async (req, res) => {
     const systemPrompt = 'You are an expert technical interviewer.';
     const userPrompt = `Generate exactly 5 interview questions for the job role: "${jobRole}". Return them as a JSON array of strings with no extra text or explanation. Example format: ["Question 1", "Question 2", ...]`;
 
+    console.log('Gemini API Key exists:', !!process.env.GEMINI_API_KEY);
     const rawResponse = await callAI(systemPrompt, userPrompt);
     const questions = JSON.parse(rawResponse);
 
