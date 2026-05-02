@@ -4,7 +4,7 @@ const Session = require('../models/Session');
 
 const router = express.Router();
 
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
 
 async function callAI(systemPrompt, userPrompt) {
   const url = `${GEMINI_API_URL}?key=${process.env.GEMINI_API_KEY}`;
